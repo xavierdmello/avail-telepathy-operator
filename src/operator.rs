@@ -201,13 +201,13 @@ impl SP1LightClientOperator {
 
     /// Start the operator.
     async fn run(&mut self, loop_delay_mins: u64) -> Result<()> {
-        info!("Starting SP1 Telepathy operator");
+        info!("Starting SP1 Tel epathy operator");
 
         loop {
             let contract = SP1LightClient::new(self.contract_address, self.wallet_filler.clone());
 
-            // Get the current slot from the contract
-            let slot = contract.head().call().await?.head.try_into().unwrap();
+            // TODO: Get the current slot from avail
+            // let slot = contract.head().call().await?.head.try_into().unwrap();
 
             // Fetch the checkpoint at that slot
             let checkpoint = get_checkpoint(slot).await;
