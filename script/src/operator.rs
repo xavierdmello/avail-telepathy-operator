@@ -19,7 +19,7 @@ impl SP1LightClientOperator {
         dotenv::dotenv().ok();
 
         /// TODO - AVAIL: Read avail chain config from env, add more fields
-        let private_key = env::var("PRIVATE_KEY").expect("PRIVATE_KEY not set");
+        // let private_key = env::var("PRIVATE_KEY").expect("PRIVATE_KEY not set");
         // let chain_id = env::var("CHAIN_ID").expect("CHAIN_ID not set");
 
 
@@ -34,10 +34,10 @@ impl SP1LightClientOperator {
         client: Inner<NimbusRpc>,
     ) -> Result<Option<Vec<u8>>> {
         // TODO - AVAIL: Fetch values from avail chain storage
-        let head: u64;
-        let period: u64;
-        let contract_current_sync_committee: B256;
-        let contract_next_sync_committee: B256;
+        let head: u64 = 42;
+        let period: u64 = 42;
+        let contract_current_sync_committee: B256 = B256::ZERO;
+        let contract_next_sync_committee: B256 = B256::ZERO;
 
         // Setup client.
         let updates = get_updates(&client).await;
@@ -92,7 +92,7 @@ impl SP1LightClientOperator {
 
         loop {
             // TODO - AVAIL: Get the stored current slot from avail
-            let slot: u64;
+            let slot: u64 = 9500000;
 
             // Fetch the checkpoint at that slot
             let checkpoint = get_checkpoint(slot).await;
