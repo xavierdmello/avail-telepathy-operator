@@ -28,8 +28,8 @@ impl SP1LightClientOperator {
         }
     }
 
-    /// Fetch values and genera
-    async fn request_update(
+    /// Fetch inputs
+    async fn fetch_inputs(
         &self,
         client: Inner<NimbusRpc>,
     ) -> Result<Option<Vec<u8>>> {
@@ -73,14 +73,14 @@ impl SP1LightClientOperator {
             execution_state_proof,
         };
 
-        let encoded_proof_inputs = serde_cbor::to_vec(&inputs)?;
+        let encoded_inputs = serde_cbor::to_vec(&inputs)?;
         
         info!("New head: {:?}", latest_block.as_u64());
-        Ok(Some(encoded_proof_inputs))
+        Ok(Some(encoded_inputs))
     }
 
     /// Relay an update proof to the SP1 LightClient contract.
-    async fn relay_update(&self, encoded_proof_inputs: Vec<u8>) -> Result<()> {
+    async fn relay_update(&self, encoded_inputs: Vec<u8>) -> Result<()> {
         // TODO - AVAIL: Call fulfill_call on Avail with encoded_proof_inputs as input
 
         Ok(())
@@ -101,9 +101,9 @@ impl SP1LightClientOperator {
             let client = get_client(checkpoint.as_bytes().to_vec()).await;
 
             // Request an update
-            match self.request_update(client).await {
-                Ok(Some(encoded_proof_inputs)) => {
-                    self.relay_update(encoded_proof_inputs).await?;
+            match self.fetch_inputs(client).await {
+                Ok(Some(encoded_inputs)) => {
+                    self.relay_update(encoded_inputs).await?;
                 }
                 Ok(None) => {
                     // Contract is up to date. Nothing to update.
