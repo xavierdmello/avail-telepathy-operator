@@ -1,5 +1,5 @@
 /// Continuously keep light client updated with chain
-use alloy_primitives::U256;
+use alloy_primitives::{U256, B256};
 use anyhow::Result;
 use helios::consensus::rpc::ConsensusRpc;
 use helios::consensus::{rpc::nimbus_rpc::NimbusRpc, Inner};
@@ -9,7 +9,7 @@ use std::env;
 use std::sync::Arc;
 use std::time::Duration;
 use avail_telepathy_operator::*;
-
+use sp1_telepathy_primitives::types::ProofInputs;
 struct SP1LightClientOperator {
     // TODO - AVAIL: Add fields for configuring avail chain (e.g. rpc url, chain id, etc.)
 }
@@ -33,35 +33,11 @@ impl SP1LightClientOperator {
         &self,
         client: Inner<NimbusRpc>,
     ) -> Result<Option<Vec<u8>>> {
-        // TODO - AVAIL: Fetch values from avail storage instead of contract on ethereum
-        let head: u64 = contract
-            .head()
-            .call()
-            .await
-            .unwrap()
-            .head
-            .try_into()
-            .unwrap();
-        let period: u64 = contract
-            .getSyncCommitteePeriod(U256::from(head))
-            .call()
-            .await
-            .unwrap()
-            ._0
-            .try_into()
-            .unwrap();
-        let contract_current_sync_committee = contract
-            .syncCommittees(U256::from(period))
-            .call()
-            .await
-            .unwrap()
-            ._0;
-        let contract_next_sync_committee = contract
-            .syncCommittees(U256::from(period + 1))
-            .call()
-            .await
-            .unwrap()
-            ._0;
+        // TODO - AVAIL: Fetch values from avail chain storage
+        let head: u64;
+        let period: u64;
+        let contract_current_sync_committee: B256;
+        let contract_next_sync_committee: B256;
 
         // Setup client.
         let updates = get_updates(&client).await;
@@ -116,7 +92,7 @@ impl SP1LightClientOperator {
 
         loop {
             // TODO - AVAIL: Get the stored current slot from avail
-            let slot = contract.head().call().await?.head.try_into().unwrap();
+            let slot: u64;
 
             // Fetch the checkpoint at that slot
             let checkpoint = get_checkpoint(slot).await;

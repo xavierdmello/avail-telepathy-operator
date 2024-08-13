@@ -11,11 +11,10 @@ use helios::{
     prelude::*,
 };
 use serde::Deserialize;
-use sp1_helios_primitives::types::ExecutionStateProof;
+use sp1_telepathy_primitives::types::ExecutionStateProof;
 use ssz_rs::prelude::*;
 use std::sync::Arc;
 use tokio::sync::{mpsc::channel, watch};
-pub mod relay;
 
 /// Fetch updates for client
 pub async fn get_updates(client: &Inner<NimbusRpc>) -> Vec<Update> {
