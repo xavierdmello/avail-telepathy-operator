@@ -6,4 +6,4 @@ The previous operator reads and writes to an Ethereum contract. This repo is a r
 The code compiles and should run fine given the placeholder functions and values are filled in. They are marked by comments beginning with `// TODO - AVAIL:`
 
 
-For more cotext, please see https://github.com/availproject/avail/pull/630
+For more context, please see https://github.com/availproject/avail/pull/630
