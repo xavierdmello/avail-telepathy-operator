@@ -10,8 +10,10 @@ use std::sync::Arc;
 use std::time::Duration;
 use avail_telepathy_operator::*;
 use sp1_telepathy_primitives::types::ProofInputs;
+
 struct SP1LightClientOperator {
-    // TODO - AVAIL: Add fields for configuring avail chain (e.g. rpc url, chain id, etc.)
+    // TODO - AVAIL: Add fields for configuring avail chain (e.g. rpc url, chain id, client, etc.)
+    // pub avail_client: ExampleAvailClient
 }
 
 impl SP1LightClientOperator {
