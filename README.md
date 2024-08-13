@@ -6,7 +6,7 @@ The logic remains the same, with placeholders for reading and writing to Avail u
 For more context, please see https://github.com/availproject/avail/pull/630
 
 ## Run operator
-The code compiles and should run given the placeholder functions and values are filled in. They are marked by comments beginning with `// TODO - AVAIL:`
+The code ([`script/src/operator.rs`](https://github.com/xavierdmello/avail-telepathy-operator/blob/master/script/src/operator.rs)) compiles and should run given the placeholder functions and values are filled in. They are marked by comments beginning with `// TODO - AVAIL:`
 1. `cd ./script`
 2. `cargo run`
 
