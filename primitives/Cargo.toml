@@ -1,0 +1,17 @@
+[workspace]
+[package]
+version = "0.1.0"
+name = "sp1-telepathy-primitives"
+edition = "2021"
+
+[dependencies]
+eyre = "0.6.12"
+ssz-rs = { package = "ssz_rs", version = "0.9.0" }
+hex = "0.4.3"
+serde_with = { version = "3.4.0", features = ["hex"] }
+serde = { version = "1.0.195", features = ["derive"] }
+serde_json = "1.0.11"
+consensus-core = { git = "https://github.com/a16z/helios.git"}
+common = { git = "https://github.com/a16z/helios.git"}
+alloy-sol-types = "0.7.7"
+alloy-primitives = { version = "0.7.7", features = ["serde"] }
